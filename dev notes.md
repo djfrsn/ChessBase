@@ -41,3 +41,7 @@ start thinking/dev about how to add piece and style piece on the board @ 12:25
 styling and placement done....start work on animation @ 12:59
 
 animation complete! 🎉 @ 1:49
+
+start work on animation reset @ 1:50
+
+animation reset complete! 🎉 @ 2:12

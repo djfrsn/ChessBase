@@ -7,7 +7,7 @@ const html = htm.bind(jsxElem.createElement);
 // ✅ Draw the basic chess board squares 8x8 (use colors of your preference)
 // ✅ Draw the basic chess setup of the 16 pieces per side (see reference image below)
 // ✅ Use images or Unicode (https://www.i2symbol.com/symbols/chess) for pieces
-// - Animate the display of the chess pieces (your animation of choice, but make the initial
+// ✅ Animate the display of the chess pieces (your animation of choice, but make the initial
 // setup look and be engaging)
 // - Create a button that triggers an event to “reset” the pieces and show the setup animation
 // again
@@ -18,6 +18,7 @@ const html = htm.bind(jsxElem.createElement);
 // - simple piece movement
 
 // TODO: fix chess board square size on smaller screens
+// TODO: make the animation start with the major rank...then pawns
 
 class ChessBoard extends HTMLElement {
   static startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
@@ -61,9 +62,9 @@ class ChessBoard extends HTMLElement {
     }
 
     this.board = board
-    // init pieces based on FEN implementation in my paperchess project
-    // piece placement | side to move | castling ability | en passant target square | halfmove clock | fullmove number -> learned from: https://www.chessprogramming.org/Forsyth-Edwards_Notation
 
+    // init pieces based on FEN implementation in my paperchess project -> https://github.com/djfrsn/paperchess
+    // piece placement | side to move | castling ability | en passant target square | halfmove clock | fullmove number -> learned from: https://www.chessprogramming.org/Forsyth-Edwards_Notation
     // split the FEN string into sections
     const boardLayout = ChessBoard.startingFen.split(' ')[0]
     // rank8, rank7, rank6, rank5, rank4, rank3, rank2, rank1...rank per board row
@@ -115,7 +116,7 @@ class ChessBoard extends HTMLElement {
 
     // wait for the next frame
     requestAnimationFrame(() => {
-      this.animatePieces()
+      this.constructor.animatePieces()
     });
 
     // Example event handler
@@ -124,7 +125,7 @@ class ChessBoard extends HTMLElement {
     });
   }
 
-  animatePieces() {
+  static animatePieces() {
     // animate each two pieces from each rank at a time in a linear fashion -> from the middle pieces to the outside pieces
 
     // assume pieces are hidden
@@ -134,7 +135,7 @@ class ChessBoard extends HTMLElement {
     const whitePawnStartIndex = [51, 52]
     const blackMajorPieceStartIndex = [3, 4]
     const whiteMajorPieceStartIndex = [59, 60]
-    const pieces = this.querySelectorAll('.piece')
+    const pieces = document.querySelectorAll('.piece')
 
     // loop over each set of pieces starting with the rank7, rank2 pawns
     for (let i = 0; i < 2; i++) {
@@ -148,7 +149,7 @@ class ChessBoard extends HTMLElement {
         const whiteMajorRPiece = pieces[whiteMajorPieceStartIndex[1] + j]
         const blackMajorLPiece = pieces[blackMajorPieceStartIndex[0] - j]
         const blackMajorRPiece = pieces[blackMajorPieceStartIndex[1] + j]
-        const piecesElements = [
+        const pieceList = [
           blackPawnLPiece,
           blackPawnRPiece,
           whitePawnLPiece,
@@ -160,7 +161,7 @@ class ChessBoard extends HTMLElement {
         ]
         // add animation class to each piece
         // add inline animation delay for each piece
-        piecesElements
+        pieceList
           .forEach(piece => {
             piece.classList.add('animate')
             piece.style.transitionDelay = `${j * 0.2}s`
@@ -168,6 +169,29 @@ class ChessBoard extends HTMLElement {
       }
     }
   }
+
+  static resetAnimation() {
+    // remove animate class from each piece..this will trigger fade out on each piece
+    const pieces = document.querySelectorAll('.piece')
+    pieces.forEach(piece => {
+      piece.classList.remove('animate')
+      piece.style.transitionDelay = ''
+    })
+
+    // wait some time before animating again...allow time for the pieces to reset
+    // use requestAnimationFrame here because...more fun and more effiecient
+    const startAnimation = (timestamp) => {
+      if (timestamp < 60) {
+        requestAnimationFrame(() => startAnimation(timestamp + 1));
+        return;
+      }
+      this.animatePieces()
+    }
+
+    startAnimation(0)
+  }
 }
 
 customElements.define('chess-board', ChessBoard);
+
+export default ChessBoard;

@@ -11,6 +11,7 @@ class ChessControls extends HTMLElement {
     // Render append will append the elements to the container
     renderAppend(html`<button onClick=${() => chessEvents.emit('move', {from: 'e7', to: 'e5'})}>Move e7 -> e5</button>`, this);
     renderAppend(html`<button onClick=${() => chessEvents.emit('move', {from: 'e2', to: 'e4'})}>Move e2 -> e4</button>`, this);
+    renderAppend(html`<button onClick=${() => customElements.get('chess-board').resetAnimation()}>Reset Animation</button>`, this);
   }
 }
 
