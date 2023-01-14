@@ -16,10 +16,16 @@ start adding pseudo code and comments for requirements @ 10:43
 
 starting reading custom elements docs to get a better understanding of the api @ 10:44
 
+review my paperchess(https://github.com/djfrsn/paperchess) code to see how I implemented the chess board array @ 10:45
+
 start coding board array @ 10:47
 
 start figuring out how to determine which pieces to place in which square board array @ 11:00
 
 pivot to rendering board based on squares @ 11:03
 
-review my paperchess(https://github.com/djfrsn/paperchess) code to see how I implemented the chess board array @ 10:45
+spent some time figuring out how to use the render method in conjuction with the board array...now rendering board @ 11:12
+
+board styles complete! 🎉 @ 11:26
+
+start thinking about how to implement the pieces @ 11:26

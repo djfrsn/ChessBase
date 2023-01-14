@@ -41,7 +41,7 @@ class ChessBoard extends HTMLElement {
       boardElements.push(html`<div class='square ${this.board[i].color}'></div>`)
     }
 
-    render(html`${boardElements.map(el => el)}`, this);
+    render(html`<div>${boardElements.map(el => el)}</div>`, this);
 
     // Example event handler
     chessEvents.on('move', ({detail}) => {
