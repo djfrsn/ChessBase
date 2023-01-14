@@ -50,3 +50,4 @@ start cleanup and fix layout @ 2:12
 
 prevent layout from breaking...but remove responsiveness :( @ 2:31
 
+finish animation improvement and make final commit :) 🎉 @ 2:37

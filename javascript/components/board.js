@@ -176,7 +176,11 @@ class ChessBoard extends HTMLElement {
         pieceList
           .forEach(piece => {
             piece.classList.add('animate')
-            piece.style.transitionDelay = `${j * 0.2}s`
+            const isPawn = piece.textContent === ChessBoard.pieceGraphics['p']
+            || piece.textContent === ChessBoard.pieceGraphics['P']
+            console.log(isPawn)
+            // animate pawn pieces first, then major pieces
+            piece.style.transitionDelay = `${(j * 0.2) + (isPawn ? 0 : 1)}s`
         })
       }
     }
