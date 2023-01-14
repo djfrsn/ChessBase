@@ -45,3 +45,5 @@ animation complete! 🎉 @ 1:49
 start work on animation reset @ 1:50
 
 animation reset complete! 🎉 @ 2:12
+
+start cleanup and fix layout @ 2:12

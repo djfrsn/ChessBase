@@ -17,12 +17,13 @@ chess-board {
 chess-board div {
   display: flex;
   flex-wrap: wrap;
+  width: 90vh;
+  height: 90vh;
 }
 
 chess-board div .square {
   display: flex;
-  /* flex grow 1(even size), shrink 0(items won't overflow container, basis 12.5%(initial sizeo of each item) */
-  flex: 1 0 12.5%;
+  width: 12.5%;
   /* height of each element = 90/8 = 11.25 */
   height: 11.25vh;
   justify-content: center;

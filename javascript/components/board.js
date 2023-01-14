@@ -9,7 +9,7 @@ const html = htm.bind(jsxElem.createElement);
 // ✅ Use images or Unicode (https://www.i2symbol.com/symbols/chess) for pieces
 // ✅ Animate the display of the chess pieces (your animation of choice, but make the initial
 // setup look and be engaging)
-// - Create a button that triggers an event to “reset” the pieces and show the setup animation
+// ✅ Create a button that triggers an event to “reset” the pieces and show the setup animation
 // again
 
 // Bonus:
@@ -39,6 +39,12 @@ class ChessBoard extends HTMLElement {
   constructor() {
     super();
 
+    this
+      .createBoard()
+      .setPieces()
+  }
+
+  createBoard() {
     // the idea is to create a 2d array of objects that represent the board
     // each object will have a position, color, and piece
     // position = [row, column]
@@ -63,6 +69,10 @@ class ChessBoard extends HTMLElement {
 
     this.board = board
 
+    return this
+  }
+
+  setPieces() {
     // init pieces based on FEN implementation in my paperchess project -> https://github.com/djfrsn/paperchess
     // piece placement | side to move | castling ability | en passant target square | halfmove clock | fullmove number -> learned from: https://www.chessprogramming.org/Forsyth-Edwards_Notation
     // split the FEN string into sections
@@ -95,6 +105,8 @@ class ChessBoard extends HTMLElement {
         }
       }
     }
+
+    return this
   }
 
   connectedCallback() {
