@@ -32,6 +32,8 @@ start thinking about how to implement the pieces @ 11:26
 
 finish reading a wiki on fen notation and reviewing algorithim to places pieces in 2d array based on fen @ 11:41
 
-finish piece implementation @ 12:20
+finish piece implementation and spent much time understanding the algo to interpret fen strings/arrays works @ 12:20
 
-stretch and quick victory lap 🎉 @ 12:20
+stretch and quick celebratory walk...thinking about how I will animate the pieces 🎉 @ 12:20
+
+start thinking/dev about how to add piece and style piece on the board @ 12:25

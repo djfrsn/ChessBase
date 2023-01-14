@@ -5,20 +5,34 @@ const html = htm.bind(jsxElem.createElement);
 
 // Requirements:
 // ✅ Draw the basic chess board squares 8x8 (use colors of your preference)
-// - Draw the basic chess setup of the 16 pieces per side (see reference image below)
-// - Use images or Unicode (https://www.i2symbol.com/symbols/chess) for pieces
+// ✅ Draw the basic chess setup of the 16 pieces per side (see reference image below)
+// ✅ Use images or Unicode (https://www.i2symbol.com/symbols/chess) for pieces
 // - Animate the display of the chess pieces (your animation of choice, but make the initial
 // setup look and be engaging)
 // - Create a button that triggers an event to “reset” the pieces and show the setup animation
 // again
 
 // Bonus:
-// - set board state from array
+// ✅ set board state from array
 // - mouse control
 // - simple piece movement
-// - show board coordinates
 
 class ChessBoard extends HTMLElement {
+  static startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+  static pieceGraphics = {
+    'r': '♜',
+    'n': '♞',
+    'b': '♝',
+    'q': '♛',
+    'k': '♚',
+    'p': '♟︎',
+    'R': '♖	',
+    'N': '♘',
+    'B': '♝',
+    'Q': '♕',
+    'K': '♔',
+    'P': '♙',
+  }
   constructor() {
     super();
 
@@ -38,7 +52,7 @@ class ChessBoard extends HTMLElement {
           // coordinates are i = row, j = column
           position: [i, j],
           // even squares are white, odd squares are black
-          color: (i + j) % 2 === 0 ? 'white' : 'black',
+          color: (i + j) % 2 === 0 ?  'white' : 'black',
           piece: null
         })
       }
@@ -47,10 +61,9 @@ class ChessBoard extends HTMLElement {
     this.board = board
     // init pieces based on FEN implementation in my paperchess project
     // piece placement | side to move | castling ability | en passant target square | halfmove clock | fullmove number -> learned from: https://www.chessprogramming.org/Forsyth-Edwards_Notation
-    const fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
 
     // split the FEN string into sections
-    const boardLayout = fen.split(' ')[0]
+    const boardLayout = ChessBoard.startingFen.split(' ')[0]
     // rank8, rank7, rank6, rank5, rank4, rank3, rank2, rank1...rank per board row
     // rank8 = black top row major pieces
     // rank7 = black pawns
@@ -73,10 +86,6 @@ class ChessBoard extends HTMLElement {
         } else {
           // if we run into a character that is not a number, then we have a piece
           // get the x, y position of the piece based on curr rank/file
-          let pos = [
-            fileIndex,
-            rankIndex
-          ]
           this.board[fileIndex + rankIndex * 8].piece = char
 
           fileIndex += 1
@@ -89,7 +98,15 @@ class ChessBoard extends HTMLElement {
     let boardElements = []
     // loop over board array and create a div for each square
     for (let i = 0; i < this.board.length; i++) {
-      boardElements.push(html`<div class='square ${this.board[i].color}'></div>`)
+      boardElements.push(
+        html`
+        <div class='square ${this.board[i].color}'>
+          <div class='piece ${this.board[i].piece === this.board[i].piece?.toUpperCase() ? 'white' : 'black'}'>
+            ${this.board[i].piece ? ChessBoard.pieceGraphics[this.board[i].piece] : ''}
+          </div>
+        </div>
+        `
+      )
     }
 
     render(html`<div>${boardElements.map(el => el)}</div>`, this);
