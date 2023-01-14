@@ -37,3 +37,7 @@ finish piece implementation and spent much time understanding the algo to interp
 stretch and quick celebratory walk...thinking about how I will animate the pieces 🎉 @ 12:20
 
 start thinking/dev about how to add piece and style piece on the board @ 12:25
+
+styling and placement done....start work on animation @ 12:59
+
+animation complete! 🎉 @ 1:49

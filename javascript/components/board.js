@@ -17,6 +17,8 @@ const html = htm.bind(jsxElem.createElement);
 // - mouse control
 // - simple piece movement
 
+// TODO: fix chess board square size on smaller screens
+
 class ChessBoard extends HTMLElement {
   static startingFen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
   static pieceGraphics = {
@@ -111,10 +113,60 @@ class ChessBoard extends HTMLElement {
 
     render(html`<div>${boardElements.map(el => el)}</div>`, this);
 
+    // wait for the next frame
+    requestAnimationFrame(() => {
+      this.animatePieces()
+    });
+
     // Example event handler
     chessEvents.on('move', ({detail}) => {
       console.log(`Move event received: ${detail.from} -> ${detail.to}`);
     });
+  }
+
+  animatePieces() {
+    // animate each two pieces from each rank at a time in a linear fashion -> from the middle pieces to the outside pieces
+
+    // assume pieces are hidden
+
+    // get starting indexes for four sets of pieces...rank8, rank7, rank2, rank1
+    const blackPawnStartIndex = [11, 12]
+    const whitePawnStartIndex = [51, 52]
+    const blackMajorPieceStartIndex = [3, 4]
+    const whiteMajorPieceStartIndex = [59, 60]
+    const pieces = this.querySelectorAll('.piece')
+
+    // loop over each set of pieces starting with the rank7, rank2 pawns
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 4; j++) {
+        // get pieces at the starting index
+        const blackPawnLPiece = pieces[blackPawnStartIndex[0] - j]
+        const blackPawnRPiece = pieces[blackPawnStartIndex[1] + j]
+        const whitePawnLPiece = pieces[whitePawnStartIndex[0] - j]
+        const whitePawnRPiece = pieces[whitePawnStartIndex[1] + j]
+        const whiteMajorLPiece = pieces[whiteMajorPieceStartIndex[0] - j]
+        const whiteMajorRPiece = pieces[whiteMajorPieceStartIndex[1] + j]
+        const blackMajorLPiece = pieces[blackMajorPieceStartIndex[0] - j]
+        const blackMajorRPiece = pieces[blackMajorPieceStartIndex[1] + j]
+        const piecesElements = [
+          blackPawnLPiece,
+          blackPawnRPiece,
+          whitePawnLPiece,
+          whitePawnRPiece,
+          whiteMajorLPiece,
+          whiteMajorRPiece,
+          blackMajorLPiece,
+          blackMajorRPiece
+        ]
+        // add animation class to each piece
+        // add inline animation delay for each piece
+        piecesElements
+          .forEach(piece => {
+            piece.classList.add('animate')
+            piece.style.transitionDelay = `${j * 0.2}s`
+        })
+      }
+    }
   }
 }
 

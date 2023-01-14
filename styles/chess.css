@@ -42,6 +42,12 @@ chess-board .square .piece {
   cursor: pointer;
   user-select: none;
   color: #000;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+chess-board .square .piece.animate {
+  opacity: 1;
 }
 
 chess-controls {
