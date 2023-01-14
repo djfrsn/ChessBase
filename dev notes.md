@@ -47,3 +47,6 @@ start work on animation reset @ 1:50
 animation reset complete! 🎉 @ 2:12
 
 start cleanup and fix layout @ 2:12
+
+prevent layout from breaking...but remove responsiveness :( @ 2:31
+

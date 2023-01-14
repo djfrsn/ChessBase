@@ -45,6 +45,8 @@ chess-board .square .piece {
   color: #000;
   opacity: 0;
   transition: opacity 0.5s;
+  width: unset;
+  height: unset;
 }
 
 chess-board .square .piece.animate {
