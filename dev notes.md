@@ -32,4 +32,6 @@ start thinking about how to implement the pieces @ 11:26
 
 finish reading a wiki on fen notation and reviewing algorithim to places pieces in 2d array based on fen @ 11:41
 
-finish coding pieces @ 12
+finish piece implementation @ 12:20
+
+stretch and quick victory lap 🎉 @ 12:20

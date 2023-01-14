@@ -13,22 +13,23 @@ const html = htm.bind(jsxElem.createElement);
 // again
 
 // Bonus:
-// -
+// - set board state from array
+// - mouse control
+// - simple piece movement
+// - show board coordinates
 
 class ChessBoard extends HTMLElement {
   constructor() {
     super();
 
-    // init board array
     // the idea is to create a 2d array of objects that represent the board
     // each object will have a position, color, and piece
     // position = [row, column]
     // color = 'white' or 'black'
     // piece = null or a piece object
 
-    // create a 8x8 2d array
     const board = []
-
+    // create a 8x8 2d array
     // iterate 8 times for each row
     for (let i = 0; i < 8; i++) {
       // iterate 8 times for each column
@@ -50,32 +51,40 @@ class ChessBoard extends HTMLElement {
 
     // split the FEN string into sections
     const boardLayout = fen.split(' ')[0]
-    const pieceLayout = boardLayout.split('/')
+    // rank8, rank7, rank6, rank5, rank4, rank3, rank2, rank1...rank per board row
+    // rank8 = black top row major pieces
+    // rank7 = black pawns
+    // rank2 = white pawns
+    // rank1 = white top row major pieces
+    const rankLayout = boardLayout.split('/') // rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR = 8 ranks
 
-    for (let i = 0; i < pieceLayout.length; i++) {
-      let fileIndex = 0
-      for (let j = 0; j < pieceLayout[i].length; j++) {
-        let char = pieceLayout[i][j]
-        console.log('char', char)
-        // let num = parseFloat(char)
-        // if (!isNaN(num) && isFinite(num)) {
-        //   fileIndex += Number(parseFloat(char))
-        // } else {
-        //   let colourIndex = char.toUpperCase() == char ? 0 : 1 // 0 = white, 1 = black
-        //   let pieceIndex = this.pieceOrder.indexOf(char.toUpperCase())
-        //   let texture = this.pieceTextures[pieceIndex][colourIndex]
-        //   let sprite = new PIXI.Sprite(texture)
-        //   let pos = new PIXI.Point(
-        //     fileIndex * this.boardSize + this.boardSize * 0.5,
-        //     rankIndex * this.boardSize + this.boardSize * 0.5
-        //   )
+    for (let rankIndex = 0; rankIndex < rankLayout.length; rankIndex++) {
+      let fileIndex = 0 // column index
+      for (let j = 0; j < rankLayout[rankIndex].length; j++) {
+        // from rankLayout get the pieces at a given rankIndex, then the piece at a given fileIndex
+        let char = rankLayout[rankIndex][j]
 
-        //   this.initPieceSprite(sprite, pos)
-        //   fileIndex += 1
+        let num = parseFloat(char)
+
+        if (!isNaN(num) && isFinite(num)) {
+          // if the character is a number, then skip that many squares
+          // this is used to represent empty squares 8/8/8/8 or rn1qkbnr(your bishop has moved) for example
+          fileIndex += Number(parseFloat(char))
+        } else {
+          // if we run into a character that is not a number, then we have a piece
+          // get the x, y position of the piece based on curr rank/file
+          let pos = [
+            fileIndex,
+            rankIndex
+          ]
+          this.board[fileIndex + rankIndex * 8].piece = char
+
+          fileIndex += 1
         }
       }
-
+    }
   }
+
   connectedCallback() {
     let boardElements = []
     // loop over board array and create a div for each square
