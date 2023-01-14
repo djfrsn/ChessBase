@@ -29,3 +29,7 @@ spent some time figuring out how to use the render method in conjuction with the
 board styles complete! 🎉 @ 11:26
 
 start thinking about how to implement the pieces @ 11:26
+
+finish reading a wiki on fen notation and reviewing algorithim to places pieces in 2d array based on fen @ 11:41
+
+finish coding pieces @ 12

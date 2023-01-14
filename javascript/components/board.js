@@ -2,6 +2,19 @@ import jsxElem, { render} from '../third-party/jaredsartin-jsx-no-react.js';
 import htm from 'https://unpkg.com/htm?module'
 const html = htm.bind(jsxElem.createElement);
 
+
+// Requirements:
+// ✅ Draw the basic chess board squares 8x8 (use colors of your preference)
+// - Draw the basic chess setup of the 16 pieces per side (see reference image below)
+// - Use images or Unicode (https://www.i2symbol.com/symbols/chess) for pieces
+// - Animate the display of the chess pieces (your animation of choice, but make the initial
+// setup look and be engaging)
+// - Create a button that triggers an event to “reset” the pieces and show the setup animation
+// again
+
+// Bonus:
+// -
+
 class ChessBoard extends HTMLElement {
   constructor() {
     super();
@@ -30,9 +43,38 @@ class ChessBoard extends HTMLElement {
       }
     }
 
-    console.log(board)
     this.board = board
-    // init pieces
+    // init pieces based on FEN implementation in my paperchess project
+    // piece placement | side to move | castling ability | en passant target square | halfmove clock | fullmove number -> learned from: https://www.chessprogramming.org/Forsyth-Edwards_Notation
+    const fen = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1'
+
+    // split the FEN string into sections
+    const boardLayout = fen.split(' ')[0]
+    const pieceLayout = boardLayout.split('/')
+
+    for (let i = 0; i < pieceLayout.length; i++) {
+      let fileIndex = 0
+      for (let j = 0; j < pieceLayout[i].length; j++) {
+        let char = pieceLayout[i][j]
+        console.log('char', char)
+        // let num = parseFloat(char)
+        // if (!isNaN(num) && isFinite(num)) {
+        //   fileIndex += Number(parseFloat(char))
+        // } else {
+        //   let colourIndex = char.toUpperCase() == char ? 0 : 1 // 0 = white, 1 = black
+        //   let pieceIndex = this.pieceOrder.indexOf(char.toUpperCase())
+        //   let texture = this.pieceTextures[pieceIndex][colourIndex]
+        //   let sprite = new PIXI.Sprite(texture)
+        //   let pos = new PIXI.Point(
+        //     fileIndex * this.boardSize + this.boardSize * 0.5,
+        //     rankIndex * this.boardSize + this.boardSize * 0.5
+        //   )
+
+        //   this.initPieceSprite(sprite, pos)
+        //   fileIndex += 1
+        }
+      }
+
   }
   connectedCallback() {
     let boardElements = []
