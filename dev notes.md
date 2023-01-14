@@ -18,4 +18,8 @@ starting reading custom elements docs to get a better understanding of the api @
 
 start coding board array @ 10:47
 
+start figuring out how to determine which pieces to place in which square board array @ 11:00
+
+pivot to rendering board based on squares @ 11:03
+
 review my paperchess(https://github.com/djfrsn/paperchess) code to see how I implemented the chess board array @ 10:45

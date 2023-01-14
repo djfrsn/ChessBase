@@ -31,11 +31,17 @@ class ChessBoard extends HTMLElement {
     }
 
     console.log(board)
+    this.board = board
     // init pieces
   }
   connectedCallback() {
-    // NOTE: I noticed in the mdn example shadowRoot.append is used to add elements....could we have done that here? I'm not sure if it's necessary...just wondering
-    render(html`<h1>Render your board here!</h1>`, 4);
+    let boardElements = []
+    // loop over board array and create a div for each square
+    for (let i = 0; i < this.board.length; i++) {
+      boardElements.push(html`<div class='square ${this.board[i].color}'></div>`)
+    }
+
+    render(html`${boardElements.map(el => el)}`, this);
 
     // Example event handler
     chessEvents.on('move', ({detail}) => {
