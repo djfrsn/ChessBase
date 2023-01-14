@@ -1,0 +1,19 @@
+#viewport {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+chess-board {
+  display: block;
+  background-color: #777;
+  /* Please keep the board this size */
+  width: 90vh;
+  height: 90vh;
+}
+
+chess-controls {
+  display: flex;
+  flex-direction: column;
+}
